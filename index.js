@@ -32,7 +32,9 @@ const allKeywords = keywordsCategories.reduce((prevKeywords, category) => [
 // keyword in the keywords list to take in account.
 const toggleKeyword = (keyword) => {
     if (currentKeywords.includes(keyword)) {
-        currentKeywords = currentKeywords.filter((currentKeyword) => currentKeyword !== keyword);
+        currentKeywords = currentKeywords.filter(
+            (currentKeyword) => currentKeyword !== keyword
+        );
     } else {
         currentKeywords.push(keyword);
     }
@@ -76,7 +78,16 @@ const addNewKeyword = (label, keyword) => {
 const reloadArticles = () => {
     document.querySelector('.articlesList').innerHTML = '';
     
-    const articlesToShow = data.articles;
+    const articlesToShow = data.articles.filter((article) => 
+        article.tags.some((tag) => currentKeywords.includes(tag))
+    );
+
+    if (currentKeywords.length === 0) {
+        articlesToShow = data.articles;
+    }
+
+
+
     articlesToShow.forEach((article) => {
         document.querySelector('.articlesList').innerHTML += `
             <article>
@@ -132,7 +143,7 @@ const showKeywordsList = (value) => {
     }
 };
 
-// Once the DOM (you will se what is it next week) is loaded, we get back our form and
+// Once the DOM (you will see what is it next week) is loaded, we get back our form and
 // we prevent the initial behavior of the navigator: reload the page when it's submitted.
 // Then we call the function addNewKeyword() with 2 arguments: the label value to show,
 // and the checkbox value.
