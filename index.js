@@ -124,8 +124,7 @@ const cleanedKeyword = (keyword) => {
     return cleanedKeyword;
 };
 
-// TODO: Modify this function to show the keyword containing a part of the word inserted
-// into the form (starting autocompletion at 3 letters).
+// TODO: Modify this function to show the keyword containing a part of the word inserted into the form (starting autocompletion at 3 letters).
 // TODO: We also show all the words from the same category than this word.
 // TODO: We show in first the keyword containing a part of the word inserted.
 // TODO: If a keyword is already in the list of presents hashtags (checkbox list), we don't show it.
@@ -133,6 +132,16 @@ const showKeywordsList = (value) => {
     // Starting at 3 letters inserted in the form, we do something
     if (value.length >= 3) {
         const keyWordUl = document.querySelector(".inputKeywordsHandle ul");
+        allKeywords.forEach((keyword) => {
+            if (keyword.toLowerCase().includes(value)) {
+                document.querySelector("input[type='text']").value = keyword;
+                keyWordUl.innerHTML += `
+                    <li onclick="addNewKeyword(`${keyword}`, `${cleanedKeyword(keyword)}`)">${keyword}</li>
+                    `;
+                console.log(keyWordUl.innerHTML);
+            }
+        });
+    }
         resetKeywordsUl();
         
         // This will allow you to add a new element in the list under the text input
@@ -140,13 +149,9 @@ const showKeywordsList = (value) => {
         // keyWordUl.innerHTML += `
         //    <li onclick="addNewKeyword(`${keyword}`, `${cleanedKeyword(keyword)}`)">${keyword}</li>
         // `;
-    }
 };
 
-// Once the DOM (you will see what is it next week) is loaded, we get back our form and
-// we prevent the initial behavior of the navigator: reload the page when it's submitted.
-// Then we call the function addNewKeyword() with 2 arguments: the label value to show,
-// and the checkbox value.
+// Once the DOM (you will see what is it next week) is loaded, we get back our form and we prevent the initial behavior of the navigator: reload the page when it's submitted. Then we call the function addNewKeyword() with 2 arguments: the label value to show and the checkbox value.
 window.addEventListener('DOMContentLoaded', () => {
     const inputElement = document.querySelector('input[type="text"]');
 
