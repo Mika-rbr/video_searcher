@@ -136,7 +136,7 @@ const showKeywordsList = (value) => {
             if (keyword.toLowerCase().includes(value)) {
                 document.querySelector("input[type='text']").value = keyword;
                 keyWordUl.innerHTML += `
-                    <li onclick="addNewKeyword(`${keyword}`, `${cleanedKeyword(keyword)}`)">${keyword}</li>
+                    <li onclick="addNewKeyword('${keyword}', '${cleanedKeyword(keyword)}')">${keyword}</li>
                     `;
                 console.log(keyWordUl.innerHTML);
             }
